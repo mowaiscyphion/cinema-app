@@ -11,7 +11,7 @@ const MyCheckBox = (props) => {
                 disabled={false}
                 value={isChecked}
                 onValueChange={onToggle}
-                tintColors={{ true: 'gray', false: 'gray' }}
+                tintColors={{ true: '#50a5e1', false: 'white' }}
 
                 //ios props
                 boxType={'square'}
