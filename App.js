@@ -1,6 +1,8 @@
+import { NavigationContainer } from '@react-navigation/native';
 import React, { useState } from 'react';
-import { SafeAreaView, StatusBar, StyleSheet, Text } from 'react-native';
+import { SafeAreaView, StatusBar, StyleSheet } from 'react-native';
 import SpashScreen from './src/component/SpashScreen';
+import MyStack from './src/navigations/MyStack';
 
 const App = () => {
   const [splash, setSplash] = useState(true)
@@ -16,16 +18,13 @@ const App = () => {
         animated={true}
         barStyle={'dark-content'}
       />
-      <SafeAreaView style={{ flex: 1 }}>
+      <SafeAreaView style={{ flex: 1, backgroundColor: '#191e23' }}>
         {splash ?
           <SpashScreen />
           :
-          <>
-            <Text>
-              Hell
-            </Text>
-            {/* <IntroSlider setIsIntro={setIsIntro} /> */}
-          </>}
+          <NavigationContainer >
+            <MyStack />
+          </NavigationContainer>}
       </SafeAreaView>
     </>
   )
