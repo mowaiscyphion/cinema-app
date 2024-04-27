@@ -1,97 +1,60 @@
-import React from 'react'
-import { Dimensions, FlatList, Image, Linking, SafeAreaView, StyleSheet, Text, View } from 'react-native'
-
+import firestore from '@react-native-firebase/firestore';
+import React, { useEffect, useState } from 'react';
+import { Dimensions, FlatList, Image, Linking, SafeAreaView, StyleSheet, Text, View } from 'react-native';
 const dimension = Dimensions.get('window')
 
 
-const PrintTicket = ({ item }) => (
-    <View style={styles.ticket}>
-        <Text style={styles.test}>
-            Ticket details
-        </Text>
-        <View style={styles.box}>
-            <Text style={[styles.secondary, { color: 'black', fontWeight: 'bold' }]}>Name: </Text>
-            <Text style={[styles.secondary]}>{item?.username}</Text>
-        </View>
-        <View style={styles.box}>
-            <Text style={[styles.secondary, { color: 'black', fontWeight: 'bold' }]}>Email: </Text>
-            <Text onPress={() => openLink(item?.useremail)} style={[styles.secondary, { color: '#0000FF', fontWeight: 'bold' }]}>{item?.useremail}</Text>
-        </View>
-        <View style={styles.box}>
-            <Text style={[styles.secondary, { color: 'black', fontWeight: 'bold' }]}>Cinema: </Text>
-            <Text style={[styles.secondary]}>{item?.cinema}</Text>
-        </View>
-        <View style={styles.box}>
-            <Text style={[styles.secondary, { color: 'black', fontWeight: 'bold' }]}>Seat Number: </Text>
-            <Text style={[styles.secondary]}>{item?.seat}</Text>
-        </View>
-        <View style={styles.box}>
-            <Text style={[styles.secondary, { color: 'black', fontWeight: 'bold' }]}>Date: </Text>
-            <Text style={[styles.secondary]}>{item?.date}</Text>
-        </View>
-        <View style={styles.box}>
-            <Text style={[styles.secondary, { color: 'black', fontWeight: 'bold' }]}>Time: </Text>
-            <Text style={[styles.secondary]}>{item?.time}</Text>
-        </View>
-        <View style={{ borderTopWidth: 1, borderTopColor: 'black', borderStyle: 'dashed', flexDirection: 'row', justifyContent: 'space-between', marginTop: 25 }}>
-            <View style={[styles.round, { transform: [{ translateY: -20 }, { translateX: -40 }] }]}></View>
-            <View style={[styles.round, { transform: [{ translateY: -20 }, { translateX: 40 }] }]}></View>
-        </View>
-        <View style={{ justifyContent: 'center', alignItems: 'center' }}>
-            <Image source={require('../images/Barcode.png')} style={{ width: '80%' }} />
-        </View>
-    </View>
-)
+
 
 
 const Saved = () => {
 
-    const users = [
-        {
-            id: 1,
-            cinema: "reel_marina",
-            date: "2024-04-26",
-            film: "Scream",
-            isPartner: true,
-            seat: "C10",
-            time: "18:00",
-            useremail: "jawad@gmail.com",
-            username: "jawad ali"
-        },
-        {
-            id: 2,
-            cinema: "reel_marina",
-            date: "2024-04-26",
-            film: "Scream",
-            isPartner: true,
-            seat: "C10",
-            time: "18:00",
-            useremail: "jawad@gmail.com",
-            username: "jawad ali"
-        },
-        {
-            id: 3,
-            cinema: "reel_marina",
-            date: "2024-04-26",
-            film: "Scream",
-            isPartner: true,
-            seat: "C10",
-            time: "18:00",
-            useremail: "jawad@gmail.com",
-            username: "jawad ali"
-        },
-        {
-            id: 4,
-            cinema: "reel_marina",
-            date: "2024-04-26",
-            film: "Scream",
-            isPartner: true,
-            seat: "C10",
-            time: "18:00",
-            useremail: "jawad@gmail.com",
-            username: "jawad ali"
-        },
-    ]
+    const [ticketData, setTicketData] = useState([])
+
+    const getAllTickets = async () => {
+        const tickets = await firestore().collection('Ticket').where('isPartner', '==', true).get();
+        setTicketData(tickets.docs)
+    }
+
+
+    const PrintTicket = ({ item }) => (
+        <View style={styles.ticket}>
+            <Text style={styles.test}>
+                Ticket details
+            </Text>
+            <View style={styles.box}>
+                <Text style={[styles.secondary, { color: 'black', fontWeight: 'bold' }]}>Name: </Text>
+                <Text style={[styles.secondary]}>{item?.username}</Text>
+            </View>
+            <View style={styles.box}>
+                <Text style={[styles.secondary, { color: 'black', fontWeight: 'bold' }]}>Email: </Text>
+                <Text onPress={() => openLink(item?.useremail)} style={[styles.secondary, { color: '#0000FF', fontWeight: 'bold' }]}>{item?.useremail}</Text>
+            </View>
+            <View style={styles.box}>
+                <Text style={[styles.secondary, { color: 'black', fontWeight: 'bold' }]}>Cinema: </Text>
+                <Text style={[styles.secondary]}>{item?.cinema}</Text>
+            </View>
+            <View style={styles.box}>
+                <Text style={[styles.secondary, { color: 'black', fontWeight: 'bold' }]}>Seat Number: </Text>
+                <Text style={[styles.secondary]}>{item?.seat}</Text>
+            </View>
+            <View style={styles.box}>
+                <Text style={[styles.secondary, { color: 'black', fontWeight: 'bold' }]}>Date: </Text>
+                <Text style={[styles.secondary]}>{item?.date}</Text>
+            </View>
+            <View style={styles.box}>
+                <Text style={[styles.secondary, { color: 'black', fontWeight: 'bold' }]}>Time: </Text>
+                <Text style={[styles.secondary]}>{item?.time}</Text>
+            </View>
+            <View style={{ borderTopWidth: 1, borderTopColor: 'black', borderStyle: 'dashed', flexDirection: 'row', justifyContent: 'space-between', marginTop: 25 }}>
+                <View style={[styles.round, { transform: [{ translateY: -20 }, { translateX: -40 }] }]}></View>
+                <View style={[styles.round, { transform: [{ translateY: -20 }, { translateX: 40 }] }]}></View>
+            </View>
+            <View style={{ justifyContent: 'center', alignItems: 'center' }}>
+                <Image source={require('../images/Barcode.png')} style={{ width: '80%' }} />
+            </View>
+        </View>
+    )
 
     const openLink = async (gmailUrl) => {
         Linking.canOpenURL(gmailUrl)
@@ -107,14 +70,18 @@ const Saved = () => {
             .catch((err) => console.error('An error occurred', err));
     }
 
+    useEffect(() => {
+        getAllTickets()
+    }, [])
+
 
     return (
         <SafeAreaView style={{ flex: 1, backgroundColor: '#191e23' }}>
             <View style={styles.view}>
                 <FlatList
-                    data={users}
-                    renderItem={({ item }) => <PrintTicket item={item} />}
-                    keyExtractor={item => item.id}
+                    data={ticketData}
+                    renderItem={({ item }) => <PrintTicket item={item?._data} />}
+                    keyExtractor={(item, index) => index}
                     horizontal={true}
                     showsHorizontalScrollIndicator={false}
                     contentContainerStyle={styles.continer}
@@ -148,6 +115,7 @@ const styles = StyleSheet.create({
     secondary: {
         color: '#6e6e70',
         fontSize: 15,
+        textTransform: 'capitalize'
     },
     test: {
         color: "black",

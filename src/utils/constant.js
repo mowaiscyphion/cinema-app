@@ -68,16 +68,16 @@ export const Constant = {
     ],
 
     dubaiCinemas: [
-        { name: "Dubai Mall Cinema", value: "dubai_mall" },
-        { name: "VOX Cinemas Mall of the Emirates", value: "vox_moe" },
-        { name: "Reel Cinemas Dubai Marina Mall", value: "reel_marina" },
-        { name: "Roxy Cinemas City Walk", value: "roxy_citywalk" },
-        { name: "Novo Cinemas Ibn Battuta Mall", value: "novo_ibn_battuta" },
-        { name: "Cineplex Grand Hyatt Dubai", value: "cineplex_hyatt" },
-        { name: "VOX Cinemas Mercato Mall", value: "vox_mercato" },
-        { name: "Reel Cinemas The Springs Souk", value: "reel_springs_souk" },
-        { name: "Cinema Akil", value: "cinema_akil" },
-        { name: "Roxy Cinemas Boxpark", value: "roxy_boxpark" }
+        { name: "Dubai Mall Cinema", value: "Dubai Mall Cinema" },
+        { name: "VOX Cinemas Mall of the Emirates", value: "VOX Cinemas Mall of the Emirates" },
+        { name: "Reel Cinemas Dubai Marina Mall", value: "Reel Cinemas Dubai Marina Mall" },
+        { name: "Roxy Cinemas City Walk", value: "Roxy Cinemas City Walk" },
+        { name: "Novo Cinemas Ibn Battuta Mall", value: "Novo Cinemas Ibn Battuta Mall" },
+        { name: "Cineplex Grand Hyatt Dubai", value: "Cineplex Grand Hyatt Dubai" },
+        { name: "VOX Cinemas Mercato Mall", value: "VOX Cinemas Mercato Mall" },
+        { name: "Reel Cinemas The Springs Souk", value: "Reel Cinemas The Springs Souk" },
+        { name: "Cinema Akil", value: "Cinema Akil" },
+        { name: "Roxy Cinemas Boxpark", value: "Roxy Cinemas Boxpark" }
     ],
 
     dates: [

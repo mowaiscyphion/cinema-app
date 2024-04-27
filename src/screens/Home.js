@@ -1,3 +1,4 @@
+import Auth from "@react-native-firebase/auth";
 import firestore from '@react-native-firebase/firestore';
 import { useRoute } from '@react-navigation/native';
 import React, { useEffect, useState } from 'react';
@@ -11,6 +12,7 @@ const dimensions = Dimensions.get('window')
 const Home = ({ navigation }) => {
     const [srch, setSrch] = useState('')
     const [userName, setUserName] = useState('')
+    const authUser = Auth().currentUser?.uid
     const route = useRoute()
 
 
@@ -44,7 +46,8 @@ const Home = ({ navigation }) => {
     };
 
     const getUser = async () => {
-        const user = await firestore().collection('Users').doc(route.params?.userId).get();
+        const id = route.params?.userId ? route.params?.userId : authUser
+        const user = await firestore().collection('Users').doc(id).get();
         const fullName = `${user?._data?.firstName} ${user?._data?.lastName}`
         setUserName(fullName)
     }
@@ -55,7 +58,6 @@ const Home = ({ navigation }) => {
 
     }, [route.params?.userId])
 
-
     return (
         <SafeAreaView style={{ flex: 1, backgroundColor: '#191e23' }}>
             <ScrollView>
@@ -63,7 +65,7 @@ const Home = ({ navigation }) => {
                     <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
                         <View>
                             <Text style={styles.secondary}>Welcome,</Text>
-                            <Text style={styles.test}>{userName.toUpperCase() || "Hi"}</Text>
+                            <Text style={[styles.test, { fontWeight: '800' }]}>{userName.toUpperCase() || "Back"}</Text>
                         </View>
                         <Entypo name='user' color={'#6e6e70'} size={25} style={styles.iconProfile} />
                     </View>
