@@ -1,36 +1,11 @@
-import AsyncStorage from '@react-native-async-storage/async-storage'
+import auth from '@react-native-firebase/auth'
 import React, { useState } from 'react'
-import { Image, SafeAreaView, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
+import { Alert, Image, SafeAreaView, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
 import MyCheckBox from '../component/CheckBox'
 import faceBook from '../images/Facebook.png'
 import google from '../images/Google.png'
 import insta from '../images/Instagram.png'
 import twitter from '../images/Twitter.png'
-
-
-
-const VerifyLogin = async (email, password) => {
-    try {
-        const users = await AsyncStorage.getItem('users');
-        if (users !== null) {
-            const parsedUsers = JSON.parse(users);
-            const foundUser = parsedUsers.find(user => user.email === email && user.password === password);
-            if (foundUser) {
-                console.log('Login successful!');
-                return true;
-            } else {
-                console.log('Invalid email or password.');
-                return false;
-            }
-        } else {
-            console.log('No user data found.');
-            return false;
-        }
-    } catch (error) {
-        console.error('Error verifying login:', error);
-        return false;
-    }
-};
 
 const Login = ({ navigation }) => {
     const [email, setEmail] = useState('')
@@ -43,14 +18,15 @@ const Login = ({ navigation }) => {
     }
 
     const handleLogin = async () => {
-        const isLoggedIn = await VerifyLogin(email, password);
-        if (isLoggedIn) {
-            // Navigate to the next screen or perform any other action
-            navigation.navigate('tabs')
-            // Alert.alert('Login Successful!');
-        } else {
-            Alert.alert('Invalid email or password. Please try again.');
-        }
+        await auth().signInWithEmailAndPassword(email, password).then(res => {
+            navigation.navigate('tabs', {
+                screen: 'Home',
+                params: { userId: res?.user?.uid },
+            })
+        }).catch(err => {
+            Alert.alert(err.message)
+        })
+
     };
 
     return (

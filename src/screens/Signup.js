@@ -1,11 +1,12 @@
-import AsyncStorage from '@react-native-async-storage/async-storage'
-import React, { useState } from 'react'
-import { Alert, Image, SafeAreaView, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
-import MyCheckBox from '../component/CheckBox'
-import faceBook from '../images/Facebook.png'
-import google from '../images/Google.png'
-import insta from '../images/Instagram.png'
-import twitter from '../images/Twitter.png'
+import auth from '@react-native-firebase/auth';
+import firestore from '@react-native-firebase/firestore';
+import React, { useState } from 'react';
+import { Alert, Image, SafeAreaView, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import MyCheckBox from '../component/CheckBox';
+import faceBook from '../images/Facebook.png';
+import google from '../images/Google.png';
+import insta from '../images/Instagram.png';
+import twitter from '../images/Twitter.png';
 
 const Signup = ({ navigation }) => {
     const [firstname, setFirstname] = useState('')
@@ -17,38 +18,50 @@ const Signup = ({ navigation }) => {
 
     const handleNavigate = () => {
         navigation.navigate('Login')
-
     }
 
 
     const SaveUserData = async () => {
-        try {
-            if (!password || !email) {
-                !password && Alert.alert("Password is required")
-                !email && Alert.alert("Email is required")
-                return
-            } else {
-                let userData = {
-                    firstname, lastname, password, email
-                }
-                let users = await AsyncStorage.getItem('users');
-                if (users) {
-                    users = JSON.parse(users);
-                    users.push(userData);
-                } else {
-                    users = [userData];
-                }
-                await AsyncStorage.setItem('users', JSON.stringify(users));
-                setEmail('')
-                setPassword('')
-                setFirstname('')
-                setLastname('')
-            }
-            navigation.navigate('Login')
 
-            console.log('User data saved successfully!');
-        } catch (error) {
-            console.error('Error saving user data:', error);
+        if (!password || !email) {
+            !password && Alert.alert("Password is required")
+            !email && Alert.alert("Email is required")
+            return
+        } else {
+
+            await auth()
+                .createUserWithEmailAndPassword(email.toString(), password.toString())
+                .then(async (res) => {
+                    await firestore()
+                        .collection('Users')
+                        .doc(res?.user?.uid)
+                        .set({
+                            firstName: firstname,
+                            lastName: lastname,
+                        })
+                        .then(() => {
+                            navigation.navigate('Login')
+                            setEmail('')
+                            setPassword('')
+                            setFirstname('')
+                            setLastname('')
+                            console.log('User added!');
+                        }).catch(err => {
+                            console.log(err)
+                        })
+                    Alert.alert('User account created!');
+                })
+                .catch(error => {
+                    if (error.code === 'auth/email-already-in-use') {
+                        Alert.alert('Email address is already in use!');
+                    }
+
+                    if (error.code === 'auth/invalid-email') {
+                        Alert.alert('Email address is invalid!');
+                    }
+
+                    console.log(error);
+                });
         }
     };
 
