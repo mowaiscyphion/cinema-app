@@ -7,23 +7,36 @@ import Signup from "../screens/Signup";
 import Ticket from "../screens/Ticket";
 import MyTabs from "./MyTabs";
 
+
 const Stack = createNativeStackNavigator();
 
-function MyStack() {
+
+function MyStack({ isUser }) {
+
     return (
         <Stack.Navigator
-            initialRouteName="tabs"
             screenOptions={{
                 headerShown: false,
             }}
         >
-            <Stack.Screen name="tabs" component={MyTabs} />
-            <Stack.Screen name="Login" component={Login} />
-            <Stack.Screen name="Signup" component={Signup} />
-            <Stack.Screen name="Detail" component={Detail} />
-            <Stack.Screen name="SelectSeat" component={SelectSeat} />
-            <Stack.Screen name="Checkout" component={CheckOut} />
-            <Stack.Screen name="Ticket" component={Ticket} />
+
+
+
+            {!isUser ? <>
+                <Stack.Screen name="Login" component={Login} />
+                <Stack.Screen name="Signup" component={Signup} />
+
+            </>
+                :
+                <>
+                    <Stack.Screen name="tabs" component={MyTabs} />
+                    <Stack.Screen name="Detail" component={Detail} />
+                    <Stack.Screen name="SelectSeat" component={SelectSeat} />
+                    <Stack.Screen name="Checkout" component={CheckOut} />
+                    <Stack.Screen name="Ticket" component={Ticket} />
+                </>
+            }
+
         </Stack.Navigator>
     );
 }

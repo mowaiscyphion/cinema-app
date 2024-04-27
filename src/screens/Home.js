@@ -1,4 +1,7 @@
-import React, { useState } from 'react';
+import Auth from "@react-native-firebase/auth";
+import firestore from '@react-native-firebase/firestore';
+import { useRoute } from '@react-navigation/native';
+import React, { useEffect, useState } from 'react';
 import { Dimensions, FlatList, Image, SafeAreaView, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import Search from 'react-native-vector-icons/AntDesign';
 import Entypo from 'react-native-vector-icons/Entypo';
@@ -8,6 +11,10 @@ import { Constant } from '../utils/constant';
 const dimensions = Dimensions.get('window')
 const Home = ({ navigation }) => {
     const [srch, setSrch] = useState('')
+    const [userName, setUserName] = useState('')
+    const authUser = Auth().currentUser?.uid
+    const route = useRoute()
+
 
     const handleScreenChange = (id, arr) => {
         navigation.navigate('Detail', { id: id, arrName: arr })
@@ -38,6 +45,19 @@ const Home = ({ navigation }) => {
         );
     };
 
+    const getUser = async () => {
+        const id = route.params?.userId ? route.params?.userId : authUser
+        const user = await firestore().collection('Users').doc(id).get();
+        const fullName = `${user?._data?.firstName} ${user?._data?.lastName}`
+        setUserName(fullName)
+    }
+
+    useEffect(() => {
+
+        getUser()
+
+    }, [route.params?.userId])
+
     return (
         <SafeAreaView style={{ flex: 1, backgroundColor: '#191e23' }}>
             <ScrollView>
@@ -45,7 +65,7 @@ const Home = ({ navigation }) => {
                     <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
                         <View>
                             <Text style={styles.secondary}>Welcome,</Text>
-                            <Text style={styles.test}>Ahmed Hassan</Text>
+                            <Text style={[styles.test, { fontWeight: '800' }]}>{userName.toUpperCase() || "Back"}</Text>
                         </View>
                         <Entypo name='user' color={'#6e6e70'} size={25} style={styles.iconProfile} />
                     </View>

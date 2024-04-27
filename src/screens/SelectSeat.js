@@ -47,7 +47,7 @@ const SelectSeat = ({ navigation }) => {
             film: router?.params?.film
         }
         console.log(seatData)
-        navigation.navigate('Checkout')
+        navigation.navigate('Checkout', { seatData })
     }
 
     return (
