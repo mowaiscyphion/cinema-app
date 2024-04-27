@@ -10,7 +10,7 @@ const Ticket = ({ navigation }) => {
             <ScrollView>
                 <View style={{ padding: 20 }}>
                     <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                        <Back name='left' color={'white'} size={25} />
+                        <Back name='left' color={'white'} size={25} onPress={() => navigation.goBack()} />
                         <Text style={{ color: "white", fontSize: 20, fontWeight: 800, alignSelf: 'center', marginLeft: 100 }}>Select Seats</Text>
                     </View>
                     <Text style={styles.test}>Instruction</Text>

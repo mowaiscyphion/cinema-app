@@ -3,6 +3,7 @@ import Entypo from 'react-native-vector-icons/Entypo';
 import FontAwesome6 from 'react-native-vector-icons/FontAwesome6';
 import Explore from '../screens/Explore';
 import Home from '../screens/Home';
+import Saved from '../screens/Saved';
 
 
 
@@ -39,7 +40,7 @@ function MyTabs() {
             />
             <Tab.Screen
                 name="Saved"
-                component={Explore}
+                component={Saved}
                 options={{
                     tabBarIcon: ({ color, size, focused }) => (
                         <FontAwesome6 name="bookmark" size={size} color={focused ? '#50a5e1' : '#5f6482'} />

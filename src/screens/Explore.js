@@ -13,7 +13,7 @@ const Explore = ({ navigation }) => {
 
     const Card = ({ item }) => {
         return (
-            <TouchableOpacity onPress={() => handleScreenChange(item.id, "DATA")} style={{ gap: 10, marginRight: 20 }}>
+            <TouchableOpacity activeOpacity={0.9} onPress={() => handleScreenChange(item.id, "DATA")} style={{ gap: 10, marginRight: 20 }}>
                 <Image resizeMode='cover' source={item.img} style={{ height: 250, width: 200, borderRadius: 15 }} />
                 <Text style={{ color: "white", fontSize: 20, fontWeight: 700, width: 200 }}>{item?.title}</Text>
                 <View style={{ flexDirection: "row", gap: 10 }}>
@@ -30,7 +30,7 @@ const Explore = ({ navigation }) => {
 
     const CardTwo = ({ item }) => {
         return (
-            <TouchableOpacity onPress={() => handleScreenChange(item.id, "DATA2")} style={{ gap: 10, marginRight: 20 }}>
+            <TouchableOpacity activeOpacity={0.9} onPress={() => handleScreenChange(item.id, "DATA2")} style={{ gap: 10, marginRight: 20 }}>
                 <Image source={item?.img} style={{ height: 160, width: 130, borderRadius: 15 }} />
 
             </TouchableOpacity>
