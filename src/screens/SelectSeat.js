@@ -1,8 +1,11 @@
+import { useRoute } from '@react-navigation/native';
 import React, { useState } from 'react';
-import { Dimensions, Image, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { Alert, Dimensions, Image, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { default as Back } from 'react-native-vector-icons/AntDesign';
+import MyCheckBox from '../component/CheckBox';
 import DropDown from '../component/DropDown';
+import { Constant } from '../utils/constant';
 
 const dimensions = Dimensions.get('window')
 
@@ -10,32 +13,42 @@ const SelectSeat = ({ navigation }) => {
     const [option, setOption] = useState("");
     const [date, setDate] = useState("");
     const [time, settime] = useState("");
-    const data = [
-        { name: "VOX Cinemas", value: "1" },
-        { name: "Reel Cinemas", value: "2" },
-        { name: "Novo Cinemas", value: "3" },
-        { name: "Roxy Cinemas", value: "4" },
-        { name: "Cine Royal Cinema", value: "5" },
-        { name: "CinemaCity", value: "6" },
-        { name: "Star Cinemas", value: "7" },
-        { name: "Oscar Cinema", value: "8" },
-    ];
+    const [seat, setSeat] = useState("");
+    const [isPartner, setIsPartner] = useState(false)
+    const router = useRoute()
 
-    const dates = [
-        { name: "April 26, 2024", value: "2024-04-26" },
-        { name: "April 27, 2024", value: "2024-04-27" },
-        { name: "April 28, 2024", value: "2024-04-28" },
-        { name: "April 29, 2024", value: "2024-04-29" },
-        { name: "April 30, 2024", value: "2024-04-30" },
-    ];
 
-    const times = [
-        { name: "10:00 AM", value: "10:00" },
-        { name: "12:00 PM", value: "12:00" },
-        { name: "2:00 PM", value: "14:00" },
-        { name: "4:00 PM", value: "16:00" },
-        { name: "6:00 PM", value: "18:00" },
-    ];
+
+    const handleSubmit = () => {
+        if (!option) {
+            Alert.alert("Please select a cinema.");
+            return;
+        }
+        if (!date) {
+            Alert.alert("Please select a date.");
+            return;
+        }
+        if (!time) {
+            Alert.alert("Please select a time.");
+            return;
+        }
+        if (!seat) {
+            Alert.alert("Please select a seat.");
+            return;
+        }
+
+
+        let seatData = {
+            cinema: option,
+            date: date,
+            time: time,
+            seat: seat,
+            isPartner: isPartner,
+            film: router?.params?.film
+        }
+        console.log(seatData)
+        navigation.navigate('Checkout')
+    }
 
     return (
         <SafeAreaView style={{ flex: 1, backgroundColor: '#191e23' }}>
@@ -48,8 +61,8 @@ const SelectSeat = ({ navigation }) => {
                     <DropDown
                         label={'Cinema'}
                         disable={false}
-                        data={data}
-                        // placeHolderText={"Course"}
+                        data={Constant.dubaiCinemas}
+                        placeHolderText={"Select Cinema"}
                         value={option}
                         setValue={setOption}
                     />
@@ -57,8 +70,8 @@ const SelectSeat = ({ navigation }) => {
                         <DropDown
                             label={'Date'}
                             disable={false}
-                            data={dates}
-                            // placeHolderText={"Course"}
+                            data={Constant.dates}
+                            placeHolderText={"Select Date"}
                             value={date}
                             setValue={setDate}
                             dropdownStyle={{ width: 150 }}
@@ -66,18 +79,31 @@ const SelectSeat = ({ navigation }) => {
                         <DropDown
                             label={'Time'}
                             disable={false}
-                            data={times}
-                            // placeHolderText={"Course"}
+                            data={Constant.times}
+                            placeHolderText={"Select Time"}
                             value={time}
                             setValue={settime}
                             dropdownStyle={{ width: 150 }}
                         />
                     </View>
+                    <DropDown
+                        label={'Select Seat'}
+                        disable={false}
+                        data={Constant.seats}
+                        placeHolderText={"Select Seat"}
+                        value={seat}
+                        setValue={setSeat}
+                    />
+                    <View style={{ flexDirection: 'row', alignItems: 'center', gap: 5 }}>
+                        <MyCheckBox isChecked={isPartner} onToggle={() => setIsPartner(prev => !prev)} />
+                        <Text style={styles.secondary}>
+                            I want to be a movie Partner.
+                        </Text>
+                    </View>
                     <View style={{ justifyContent: 'center', alignItems: 'center' }}>
-
                         <Image resizeMode='contain' source={require('../images/seats.png')} style={{ width: dimensions.width * 0.9, height: 430 }} />
                     </View>
-                    <TouchableOpacity onPress={() => navigation.navigate('Checkout')} style={styles.btn}>
+                    <TouchableOpacity onPress={handleSubmit} style={styles.btn}>
                         <Text style={{ color: 'white', fontSize: 18, fontWeight: 800 }} >Checkout</Text>
                     </TouchableOpacity>
                 </View>
@@ -96,5 +122,9 @@ const styles = StyleSheet.create({
         padding: 12,
         justifyContent: 'center',
         alignItems: 'center'
-    }
+    },
+    secondary: {
+        color: '#6e6e70',
+        fontSize: 15
+    },
 })
