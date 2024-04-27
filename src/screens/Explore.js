@@ -1,57 +1,39 @@
 import React from 'react';
-import { FlatList, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { FlatList, Image, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { default as Back, default as Search } from 'react-native-vector-icons/AntDesign';
+import { Constant } from '../utils/constant';
 
-const Explore = () => {
+const Explore = ({ navigation }) => {
 
-    const data = [
-        {
-            name: "The Shawshank Redemption"
-        },
-        {
-            name: "The Godfather"
-        },
-        {
-            name: "The Dark Knight"
-        },
-        {
-            name: "Pulp Fiction"
-        }
-    ];
 
+    const handleScreenChange = (id, arr) => {
+        navigation.navigate('Detail', { id: id, arrName: arr })
+    }
 
     const Card = ({ item }) => {
         return (
-            <View style={{ gap: 10, marginRight: 20 }}>
-                <View style={{ backgroundColor: "red", height: 250, width: 200, borderRadius: 15 }}></View>
-                <Text style={{ color: "white", fontSize: 20, fontWeight: 700, width: 200 }}>{item?.name}</Text>
+            <TouchableOpacity onPress={() => handleScreenChange(item.id, "DATA")} style={{ gap: 10, marginRight: 20 }}>
+                <Image resizeMode='cover' source={item.img} style={{ height: 250, width: 200, borderRadius: 15 }} />
+                <Text style={{ color: "white", fontSize: 20, fontWeight: 700, width: 200 }}>{item?.title}</Text>
                 <View style={{ flexDirection: "row", gap: 10 }}>
-                    <Search name='star' color={'yellow'} size={20} />
-                    <Search name='star' color={'yellow'} size={20} />
-                    <Search name='star' color={'yellow'} size={20} />
-                    <Search name='star' color={'yellow'} size={20} />
-                    <Search name='star' color={'yellow'} size={20} />
+                    <Search name='star' color={'#ffa032'} size={20} />
+                    <Search name='star' color={'#ffa032'} size={20} />
+                    <Search name='star' color={'#ffa032'} size={20} />
+                    <Search name='star' color={'#ffa032'} size={20} />
+                    <Search name='star' color={'#ffa032'} size={20} />
 
                 </View>
-            </View>
+            </TouchableOpacity>
         )
     }
 
     const CardTwo = ({ item }) => {
         return (
-            <View style={{ gap: 10, marginRight: 20 }}>
-                <View style={{ backgroundColor: "red", height: 160, width: 130, borderRadius: 15 }}></View>
-                {/* <Text style={{ color: "white", fontSize: 20, fontWeight: 700, width: 200 }}>{item?.name}</Text>
-                <View style={{ flexDirection: "row", gap: 10 }}>
-                    <Search name='star' color={'yellow'} size={20} />
-                    <Search name='star' color={'yellow'} size={20} />
-                    <Search name='star' color={'yellow'} size={20} />
-                    <Search name='star' color={'yellow'} size={20} />
-                    <Search name='star' color={'yellow'} size={20} />
+            <TouchableOpacity onPress={() => handleScreenChange(item.id, "DATA2")} style={{ gap: 10, marginRight: 20 }}>
+                <Image source={item?.img} style={{ height: 160, width: 130, borderRadius: 15 }} />
 
-                </View> */}
-            </View>
+            </TouchableOpacity>
         )
     }
     return (
@@ -76,14 +58,14 @@ const Explore = () => {
                         <Text style={{ color: "#6e6e70", fontSize: 16, fontWeight: 800 }}>See more</Text>
                     </View>
                     <View style={{ marginTop: 20 }}>
-                        <FlatList data={data} renderItem={({ item }) => <Card item={item} />} horizontal />
+                        <FlatList data={Constant.DATA} renderItem={({ item }) => <Card item={item} />} horizontal />
                     </View>
                     <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginTop: 20 }}>
                         <Text style={{ color: "white", fontSize: 22, fontWeight: 800 }}>Recommended</Text>
                         <Text style={{ color: "#6e6e70", fontSize: 16, fontWeight: 800 }}>See more</Text>
                     </View>
                     <View style={{ marginTop: 20 }}>
-                        <FlatList data={data} renderItem={({ item }) => <CardTwo item={item} />} horizontal />
+                        <FlatList data={Constant.DATA2} renderItem={({ item }) => <CardTwo item={item} />} horizontal />
                     </View>
 
                 </View>

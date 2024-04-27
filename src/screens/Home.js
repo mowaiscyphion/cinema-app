@@ -1,12 +1,42 @@
 import React, { useState } from 'react';
-import { SafeAreaView, ScrollView, StyleSheet, Text, TextInput, View } from 'react-native';
+import { Dimensions, FlatList, Image, SafeAreaView, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import Search from 'react-native-vector-icons/AntDesign';
 import Entypo from 'react-native-vector-icons/Entypo';
+import { Constant } from '../utils/constant';
 
 
-const Home = () => {
+const dimensions = Dimensions.get('window')
+const Home = ({ navigation }) => {
     const [srch, setSrch] = useState('')
 
+    const handleScreenChange = (id, arr) => {
+        navigation.navigate('Detail', { id: id, arrName: arr })
+    }
+
+
+    const Item = ({ item }) => {
+        return (
+            <TouchableOpacity onPress={() => handleScreenChange(item.id, "DATA")} style={styles.item}>
+                <Image resizeMode='cover' source={item.img} style={{ width: dimensions.width * 0.8, height: 180, borderRadius: 15 }} />
+                <Text style={[styles.test, { color: 'white', paddingVertical: 5 }]}>{item.title}</Text>
+                <Text style={[styles.description, { color: '#6e6e70' }]}>{item.date}</Text>
+            </TouchableOpacity>
+        );
+    };
+
+    const Item2 = ({ item }) => {
+        return (
+            <View style={[styles.item, { flexDirection: 'row', alignItems: 'center', marginVertical: 10, gap: 10 }]}>
+                <Image resizeMode='cover' source={item.img} style={{ width: 70, height: 70, borderRadius: 15 }} />
+                <View style={{ padding: 5 }}>
+
+                    <Text style={[{ color: '#50a5e1', paddingVertical: 5 }]}>{(Math.random() * 10).toFixed(1)} Kilometers</Text>
+                    <Text style={{ color: 'white' }}>{item?.title}</Text>
+                    <Text style={[styles.description, { color: '#6e6e70' }]}>Closed 10:00 PM</Text>
+                </View>
+            </View>
+        );
+    };
 
     return (
         <SafeAreaView style={{ flex: 1, backgroundColor: '#191e23' }}>
@@ -21,8 +51,33 @@ const Home = () => {
                     </View>
                     <View style={styles.srchbar}>
                         <Search name='search1' color={'#6e6e70'} size={25} />
-                        <TextInput style={styles.input} value={srch} onChangeText={text => setSrch(text)} placeholder='Search your favourite movie' />
+                        <TextInput style={styles.input} value={srch} onChangeText={text => setSrch(text)} placeholder='Search your favourite movie' placeholderTextColor="#6e6e70" />
                     </View>
+                    <Text style={styles.test}>
+                        Coming Soon
+                    </Text>
+                    <FlatList
+                        data={Constant.DATA}
+                        renderItem={({ item }) => <Item item={item} />}
+                        keyExtractor={item => item.id}
+                        horizontal={true}
+                        showsHorizontalScrollIndicator={false}
+                        contentContainerStyle={styles.continer}
+                    />
+                    <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
+                        <Text style={styles.test}>
+                            Cinema Near You
+                        </Text>
+                        <Text style={{ color: '#6e6e70' }}>
+                            See all
+                        </Text>
+                    </View>
+                    <FlatList
+                        data={Constant.DATA2}
+                        renderItem={({ item }) => <Item2 item={item} />}
+                        keyExtractor={item => item.id}
+                        contentContainerStyle={styles.continer}
+                    />
                 </View>
             </ScrollView>
         </SafeAreaView>
@@ -48,9 +103,9 @@ const styles = StyleSheet.create({
         padding: 10
     },
     srchbar: {
-        marginVertical: 15,
+        marginVertical: 25,
         backgroundColor: '#6e6e7060',
-        padding: 10,
+        padding: 5,
         paddingHorizontal: 20,
         borderRadius: 15,
         flexDirection: 'row',
@@ -60,6 +115,14 @@ const styles = StyleSheet.create({
     input: {
         // backgroundColor: '',
         width: '90%',
-        height: 40
+        height: 40,
+        color: '#6e6e70'
+    },
+    continer: {
+        marginVertical: 15,
+        gap: 10
+    },
+    item: {
+        marginHorizontal: 5
     }
 })
