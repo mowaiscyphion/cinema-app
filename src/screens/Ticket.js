@@ -13,9 +13,55 @@ const Ticket = ({ navigation }) => {
                         <Back name='left' color={'white'} size={25} />
                         <Text style={{ color: "white", fontSize: 20, fontWeight: 800, alignSelf: 'center', marginLeft: 100 }}>Select Seats</Text>
                     </View>
-                    <View style={{ justifyContent: 'center', alignItems: 'center' }}>
-                        <Image resizeMode='contain' source={require('../images/Ticket.png')} style={{ width: dimensions.width * 0.9, height: 700 }} />
+                    <Text style={styles.test}>Instruction</Text>
+                    <Text style={styles.secondary}>
+                        Come to the cinema, show and scan the barcode to the space provided.
+                        Continue to comply with health protocols.
+                    </Text>
+                    <View style={styles.ticket}>
+                        <View style={{ paddingHorizontal: 20, paddingVertical: 10, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
+                            <Text style={[styles.secondary, { color: 'black', fontWeight: 800, width: '60%' }]}>film:Film-name</Text>
+                            <Text style={[styles.secondary, { color: 'red', width: '40%' }]}>e-ticket</Text>
+                        </View>
+                        <View style={{ paddingHorizontal: 20, paddingVertical: 10, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginVertical: 15 }}>
+                            <View style={{ width: '60%' }}>
+                                <Text style={[styles.secondary, { fontWeight: 600 }]}>Date</Text>
+                                <Text style={[styles.secondary, { fontWeight: 800, color: 'black' }]}>06/09/2024</Text>
+                            </View>
+                            <View style={{ width: '40%' }}>
+                                <Text style={[styles.secondary, { fontWeight: 600 }]}>Seats</Text>
+                                <Text style={[styles.secondary, { fontWeight: 800, color: 'black' }]}>c4</Text>
+                            </View>
+                        </View>
+                        <View style={{ paddingHorizontal: 20, paddingVertical: 10, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginVertical: 15 }}>
+                            <View style={{ width: '60%' }}>
+                                <Text style={[styles.secondary, { fontWeight: 600 }]}>Location</Text>
+                                <Text style={[styles.secondary, { fontWeight: 800, color: 'black' }]}>Vox Cinema</Text>
+                            </View>
+                            <View style={{ width: '40%' }}>
+                                <Text style={[styles.secondary, { fontWeight: 600 }]}>Time</Text>
+                                <Text style={[styles.secondary, { fontWeight: 800, color: 'black' }]}>01:00 PM</Text>
+                            </View>
+                        </View>
+                        <View style={{ paddingHorizontal: 20, paddingVertical: 10, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginVertical: 15 }}>
+                            <View style={{ width: '60%' }}>
+                                <Text style={[styles.secondary, { fontWeight: 600 }]}>Payment</Text>
+                                <Text style={[styles.secondary, { fontWeight: 800, color: 'black' }]}>Successful</Text>
+                            </View>
+                            <View style={{ width: '40%' }}>
+                                <Text style={[styles.secondary, { fontWeight: 600 }]}>Order</Text>
+                                <Text style={[styles.secondary, { fontWeight: 800, color: 'black' }]}>1986579</Text>
+                            </View>
+                        </View>
+                        <View style={{ borderTopWidth: 1, borderTopColor: 'black', borderStyle: 'dashed', flexDirection: 'row', justifyContent: 'space-between', marginTop: 25 }}>
+                            <View style={[styles.round, { transform: [{ translateY: -20 }, { translateX: -20 }] }]}></View>
+                            <View style={[styles.round, { transform: [{ translateY: -20 }, { translateX: 20 }] }]}></View>
+                        </View>
+                        <View style={{ justifyContent: 'center', alignItems: 'center', marginBottom: 20 }}>
+                            <Image source={require('../images/Barcode.png')} style={{ width: '80%' }} />
+                        </View>
                     </View>
+
                     <TouchableOpacity onPress={() => navigation.navigate('Ticket')} style={styles.btn}>
                         <Text style={{ color: 'white', fontSize: 18, fontWeight: 800 }} >Download E-Ticket</Text>
                     </TouchableOpacity>
@@ -35,5 +81,27 @@ const styles = StyleSheet.create({
         padding: 12,
         justifyContent: 'center',
         alignItems: 'center'
+    },
+    secondary: {
+        color: '#6e6e70',
+        fontSize: 15,
+    },
+    test: {
+        color: "white",
+        fontSize: 18,
+        marginTop: 25,
+        marginVertical: 15
+    },
+    ticket: {
+        backgroundColor: 'white',
+        borderRadius: 20,
+        marginVertical: 30,
+        paddingVertical: 10
+    },
+    round: {
+        width: 40,
+        height: 40,
+        backgroundColor: '#191e23',
+        borderRadius: 20,
     }
 })

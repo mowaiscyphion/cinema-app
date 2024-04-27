@@ -1,16 +1,16 @@
 import React from 'react'
-import { Dimensions, Image, SafeAreaView, StyleSheet, View } from 'react-native'
-import SplashImage from '../images/Splash.png'
+import { Dimensions, Image, ImageBackground, SafeAreaView, StyleSheet, Text } from 'react-native'
 const dimensions = Dimensions.get('window')
 
 const SpashScreen = () => {
     return (
         <SafeAreaView style={{ flex: 1 }}>
-            <View style={styles.main}>
-                <View >
-                    <Image resizeMode='cover' source={SplashImage} style={{ width: dimensions.width, height: dimensions.height }} />
-                </View>
-            </View>
+            <ImageBackground resizeMode='cover' source={require('../images/Splash.png')} style={[styles.main, { height: '100%', width: '100%' }]}>
+                <Image resizeMode='cover' source={require('../images/Logo.png')} style={{ width: 90, height: 90 }} />
+                <Text style={styles.text}>
+                    My Cinema Hub
+                </Text>
+            </ImageBackground>
         </SafeAreaView>
     )
 }
@@ -27,5 +27,9 @@ const styles = StyleSheet.create({
     },
     textStyle: {
         textAlign: 'center',
+    },
+    text: {
+        fontSize: 20,
+        color: 'white',
     }
 })

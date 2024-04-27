@@ -51,7 +51,7 @@ const Detail = ({ navigation }) => {
                     <Text style={styles.secondary}>
                         {film?.des.slice(0, 120)} <Text style={[styles.secondary, { color: '#50a5e1' }]}>Read More</Text>
                     </Text>
-                    <TouchableOpacity onPress={() => navigation.navigate('SelectSeat')} style={styles.btn}>
+                    <TouchableOpacity onPress={() => navigation.navigate('SelectSeat', { film: film.title })} style={styles.btn}>
                         <Text style={{ color: 'white', fontSize: 18, fontWeight: 800 }} >Book Ticket</Text>
                     </TouchableOpacity>
                 </View>

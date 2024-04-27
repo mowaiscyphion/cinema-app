@@ -65,5 +65,57 @@ export const Constant = {
             date: 'April 2021'
 
         },
-    ]
+    ],
+
+    dubaiCinemas: [
+        { name: "Dubai Mall Cinema", value: "dubai_mall" },
+        { name: "VOX Cinemas Mall of the Emirates", value: "vox_moe" },
+        { name: "Reel Cinemas Dubai Marina Mall", value: "reel_marina" },
+        { name: "Roxy Cinemas City Walk", value: "roxy_citywalk" },
+        { name: "Novo Cinemas Ibn Battuta Mall", value: "novo_ibn_battuta" },
+        { name: "Cineplex Grand Hyatt Dubai", value: "cineplex_hyatt" },
+        { name: "VOX Cinemas Mercato Mall", value: "vox_mercato" },
+        { name: "Reel Cinemas The Springs Souk", value: "reel_springs_souk" },
+        { name: "Cinema Akil", value: "cinema_akil" },
+        { name: "Roxy Cinemas Boxpark", value: "roxy_boxpark" }
+    ],
+
+    dates: [
+        { name: "April 26, 2024", value: "2024-04-26" },
+        { name: "April 27, 2024", value: "2024-04-27" },
+        { name: "April 28, 2024", value: "2024-04-28" },
+        { name: "April 29, 2024", value: "2024-04-29" },
+        { name: "April 30, 2024", value: "2024-04-30" },
+    ],
+
+    times: [
+        { name: "10:00 AM", value: "10:00" },
+        { name: "12:00 PM", value: "12:00" },
+        { name: "2:00 PM", value: "14:00" },
+        { name: "4:00 PM", value: "16:00" },
+        { name: "6:00 PM", value: "18:00" },
+    ],
+
+    seats: [
+        { name: "C1", value: "C1" },
+        { name: "C2", value: "C2" },
+        { name: "C3", value: "C3" },
+        { name: "C4", value: "C4" },
+        { name: "C5", value: "C5" },
+        { name: "C6", value: "C6" },
+        { name: "C7", value: "C7" },
+        { name: "C8", value: "C8" },
+        { name: "C9", value: "C9" },
+        { name: "C10", value: "C10" },
+        { name: "C11", value: "C11" },
+        { name: "C12", value: "C12" },
+        { name: "C13", value: "C13" },
+        { name: "C14", value: "C14" },
+        { name: "C15", value: "C15" },
+        { name: "C16", value: "C16" },
+        { name: "C17", value: "C17" },
+        { name: "C18", value: "C18" },
+        { name: "C19", value: "C19" },
+        { name: "C20", value: "C20" },
+    ],
 }
