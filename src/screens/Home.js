@@ -21,7 +21,7 @@ const Home = ({ navigation }) => {
 
     const Item = ({ item }) => {
         return (
-            <TouchableOpacity onPress={() => handleScreenChange(item.id, "DATA")} style={styles.item}>
+            <TouchableOpacity activeOpacity={0.9} onPress={() => handleScreenChange(item.id, "DATA")} style={styles.item}>
                 <Image resizeMode='cover' source={item.img} style={{ width: dimensions.width * 0.8, height: 180, borderRadius: 15 }} />
                 <Text style={[styles.test, { color: 'white', paddingVertical: 5 }]}>{item.title}</Text>
                 <Text style={[styles.description, { color: '#6e6e70' }]}>{item.date}</Text>
@@ -74,15 +74,18 @@ const Home = ({ navigation }) => {
                     <Text style={styles.test}>
                         Coming Soon
                     </Text>
-                    <FlatList
-                        data={Constant.DATA}
-                        renderItem={({ item }) => <Item item={item} />}
-                        keyExtractor={item => item.id}
-                        horizontal={true}
-                        showsHorizontalScrollIndicator={false}
-                        contentContainerStyle={styles.continer}
-                    />
-                    <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
+                    <View>
+
+                        <FlatList
+                            data={Constant.DATA}
+                            renderItem={({ item }) => <Item item={item} />}
+                            keyExtractor={item => item.id}
+                            horizontal={true}
+                            showsHorizontalScrollIndicator={false}
+                            contentContainerStyle={styles.continer}
+                        />
+                    </View>
+                    <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginBottom: 15 }}>
                         <Text style={styles.test}>
                             Cinema Near You
                         </Text>
@@ -90,12 +93,19 @@ const Home = ({ navigation }) => {
                             See all
                         </Text>
                     </View>
-                    <FlatList
+                    <View >
+                        {Constant.DATA2.map((item, index) => (
+                            <Item2 key={index} item={item} />
+                        ))}
+
+                        {/* <FlatList
                         data={Constant.DATA2}
                         renderItem={({ item }) => <Item2 item={item} />}
                         keyExtractor={item => item.id}
                         contentContainerStyle={styles.continer}
-                    />
+                        showsHorizontalScrollIndicator={false}
+                    /> */}
+                    </View>
                 </View>
             </ScrollView>
         </SafeAreaView>

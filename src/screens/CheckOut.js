@@ -9,8 +9,8 @@ const CheckOut = ({ navigation }) => {
             <ScrollView>
                 <View style={{ padding: 20 }}>
                     <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                        <Back name='left' color={'white'} size={25} />
-                        <Text style={{ color: "white", fontSize: 20, fontWeight: 800, alignSelf: 'center', marginLeft: 100 }}>Select Seats</Text>
+                        <Back name='left' color={'white'} size={25} onPress={() => navigation.goBack()} />
+                        <Text style={{ color: "white", fontSize: 20, fontWeight: 800, alignSelf: 'center', marginLeft: 100 }}>Checkout</Text>
                     </View>
                     <View style={{ justifyContent: 'center', alignItems: 'center' }}>
                         <Image resizeMode='contain' source={require('../images/Checkout.png')} style={{ width: dimensions.width * 0.9, height: 700 }} />

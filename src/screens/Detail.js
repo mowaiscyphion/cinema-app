@@ -27,7 +27,7 @@ const Detail = ({ navigation }) => {
             <ScrollView>
                 <View style={{ padding: 20 }}>
                     <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
-                        <Back name='left' color={'white'} size={25} />
+                        <Back name='left' color={'white'} size={25} onPress={() => navigation.goBack()} />
                         <Text style={{ color: "white", fontSize: 20, fontWeight: 800 }}>Details Movie</Text>
                         <FontAwesome6 name="bookmark" size={25} color={'white'} />
                     </View>

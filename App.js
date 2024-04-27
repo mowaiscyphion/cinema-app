@@ -22,7 +22,7 @@ const App = () => {
         {splash ?
           <SpashScreen />
           :
-          <NavigationContainer >
+          <NavigationContainer>
             <MyStack />
           </NavigationContainer>}
       </SafeAreaView>
