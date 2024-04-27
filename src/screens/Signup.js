@@ -40,7 +40,7 @@ const Signup = ({ navigation }) => {
                             lastName: lastname,
                         })
                         .then(() => {
-                            navigation.navigate('Login')
+                            // navigation.navigate('Login')
                             setEmail('')
                             setPassword('')
                             setFirstname('')
@@ -60,7 +60,10 @@ const Signup = ({ navigation }) => {
                         Alert.alert('Email address is invalid!');
                     }
 
-                    console.log(error);
+                    if (error.code === 'auth/weak-password') {
+                        Alert.alert('Password should be at least 6 characters');
+                    }
+
                 });
         }
     };

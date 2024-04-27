@@ -9,7 +9,7 @@ const Profile = ({ navigation }) => {
         auth()
             .signOut()
             .then(() => {
-                navigation.navigate('Login')
+                // navigation.navigate('Login')
             });
     }
 

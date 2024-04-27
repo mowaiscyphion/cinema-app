@@ -34,7 +34,9 @@ const Home = ({ navigation }) => {
     const Item2 = ({ item }) => {
         return (
             <View style={[styles.item, { flexDirection: 'row', alignItems: 'center', marginVertical: 10, gap: 10 }]}>
-                <Image resizeMode='cover' source={item.img} style={{ width: 70, height: 70, borderRadius: 15 }} />
+                <View style={{ borderColor: '#50a5e1', borderWidth: 1, borderRadius: 10, padding: 10 }}>
+                    <Image resizeMode='contain' source={require('../images/film.png')} style={{ width: 40, height: 40 }} />
+                </View>
                 <View style={{ padding: 5 }}>
 
                     <Text style={[{ color: '#50a5e1', paddingVertical: 5 }]}>{(Math.random() * 10).toFixed(1)} Kilometers</Text>
@@ -99,14 +101,6 @@ const Home = ({ navigation }) => {
                         {Constant.DATA2.map((item, index) => (
                             <Item2 key={index} item={item} />
                         ))}
-
-                        {/* <FlatList
-                        data={Constant.DATA2}
-                        renderItem={({ item }) => <Item2 item={item} />}
-                        keyExtractor={item => item.id}
-                        contentContainerStyle={styles.continer}
-                        showsHorizontalScrollIndicator={false}
-                    /> */}
                     </View>
                 </View>
             </ScrollView>
