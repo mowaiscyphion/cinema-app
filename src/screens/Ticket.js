@@ -39,7 +39,7 @@ const Ticket = ({ navigation }) => {
                     </Text>
                     <View style={styles.ticket}>
                         <View style={{ paddingHorizontal: 20, paddingVertical: 10, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
-                            <Text style={[styles.secondary, { color: 'black', fontWeight: 800, width: '60%' }]}>film:{ticketData?.film}</Text>
+                            <Text style={[styles.secondary, { color: 'black', fontWeight: 800, width: '60%' }]}>Film:{ticketData?.film}</Text>
                             <Text style={[styles.secondary, { color: 'red', width: '40%' }]}>e-ticket</Text>
                         </View>
                         <View style={{ paddingHorizontal: 20, paddingVertical: 10, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginVertical: 15 }}>

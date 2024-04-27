@@ -15,7 +15,7 @@ const Saved = () => {
         const tickets = await firestore().collection('Ticket').where('isPartner', '==', true).get();
         setTicketData(tickets.docs)
     }
-
+    console.log(ticketData)
 
     const PrintTicket = ({ item }) => (
         <View style={styles.ticket}>
@@ -28,11 +28,15 @@ const Saved = () => {
             </View>
             <View style={styles.box}>
                 <Text style={[styles.secondary, { color: 'black', fontWeight: 'bold' }]}>Email: </Text>
-                <Text onPress={() => openLink(item?.useremail)} style={[styles.secondary, { color: '#0000FF', fontWeight: 'bold' }]}>{item?.useremail}</Text>
+                <Text onPress={() => openLink(item?.useremail)} style={[styles.secondary, { color: '#0000FF', fontWeight: 'bold', textTransform: 'lowercase' }]}>{item?.useremail}</Text>
+            </View>
+            <View style={styles.box}>
+                <Text style={[styles.secondary, { color: 'black', fontWeight: 'bold' }]}>Film: </Text>
+                <Text style={[styles.secondary]}>{item?.film}</Text>
             </View>
             <View style={styles.box}>
                 <Text style={[styles.secondary, { color: 'black', fontWeight: 'bold' }]}>Cinema: </Text>
-                <Text style={[styles.secondary]}>{item?.cinema}</Text>
+                <Text style={[styles.secondary, { width: dimension.width * 0.5 }]}>{item?.cinema}</Text>
             </View>
             <View style={styles.box}>
                 <Text style={[styles.secondary, { color: 'black', fontWeight: 'bold' }]}>Seat Number: </Text>
@@ -106,7 +110,7 @@ const styles = StyleSheet.create({
     },
     ticket: {
         width: dimension.width * 0.8,
-        height: dimension.height * 0.7,
+        // height: dimension.height * 0.7,
         backgroundColor: 'white',
         borderRadius: 20,
         marginVertical: 30,
