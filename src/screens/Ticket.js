@@ -9,7 +9,7 @@ const Ticket = ({ navigation }) => {
     const route = useRoute()
     let ticketData = route?.params?.userObj
 
-
+    console.log(ticketData)
     function generateRandomNumber(length) {
         let result = '';
         const characters = '0123456789';
@@ -81,10 +81,8 @@ const Ticket = ({ navigation }) => {
                         </View>
                     </View>
 
-                    <TouchableOpacity onPress={() => navigation.navigate('tabs', {
-                        screen: 'Home'
-                    })} style={styles.btn}>
-                        <Text style={{ color: 'white', fontSize: 18, fontWeight: 800 }} >Download E-Ticket</Text>
+                    <TouchableOpacity onPress={() => navigation.navigate('MyTickets')} style={styles.btn}>
+                        <Text style={{ color: 'white', fontSize: 18, fontWeight: 800 }} >See All Tickets</Text>
                     </TouchableOpacity>
                 </View>
             </ScrollView>

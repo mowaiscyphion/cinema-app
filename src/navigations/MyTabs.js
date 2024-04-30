@@ -17,6 +17,7 @@ function MyTabs() {
             screenOptions={{
                 tabBarStyle: { backgroundColor: '#191e23', borderTopColor: 'transparent' },
                 headerShown: false,
+                tabBarShowLabel: false
             }}
         >
             <Tab.Screen

@@ -1,3 +1,4 @@
+import Auth from "@react-native-firebase/auth";
 import firestore from '@react-native-firebase/firestore';
 import React, { useEffect, useState } from 'react';
 import { Dimensions, FlatList, Image, Linking, SafeAreaView, StyleSheet, Text, View } from 'react-native';
@@ -6,16 +7,15 @@ const dimension = Dimensions.get('window')
 
 
 
-
-const Saved = () => {
+const MyTickets = () => {
 
     const [ticketData, setTicketData] = useState([])
 
+    const authUser = Auth().currentUser
     const getAllTickets = async () => {
-        const tickets = await firestore().collection('Ticket').where('isPartner', '==', true).get();
+        const tickets = await firestore().collection('Ticket').where('useremail', '==', authUser?.email).get();
         setTicketData(tickets.docs)
     }
-    console.log(ticketData)
 
     const PrintTicket = ({ item }) => (
         <View style={styles.ticket}>
@@ -95,7 +95,7 @@ const Saved = () => {
     )
 }
 
-export default Saved
+export default MyTickets
 
 const styles = StyleSheet.create({
     view: {

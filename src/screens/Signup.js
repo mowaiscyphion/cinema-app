@@ -1,12 +1,8 @@
 import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
 import React, { useState } from 'react';
-import { Alert, Image, SafeAreaView, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { Alert, SafeAreaView, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import MyCheckBox from '../component/CheckBox';
-import faceBook from '../images/Facebook.png';
-import google from '../images/Google.png';
-import insta from '../images/Instagram.png';
-import twitter from '../images/Twitter.png';
 
 const Signup = ({ navigation }) => {
     const [firstname, setFirstname] = useState('')
@@ -114,13 +110,13 @@ const Signup = ({ navigation }) => {
                         <Text style={styles.secondary}>Already a member?</Text>
                         <Text style={styles.forget} onPress={handleNavigate}>Login</Text>
                     </View>
-                    <Text style={[styles.secondary, { textAlign: 'center' }]}>------------------------- Or continue with -------------------------</Text>
+                    {/* <Text style={[styles.secondary, { textAlign: 'center' }]}>------------------------- Or continue with -------------------------</Text>
                     <View style={{ flexDirection: 'row', gap: 10, alignItems: 'center', justifyContent: 'center', marginVertical: 25 }}>
                         <Image source={google} />
                         <Image source={faceBook} />
                         <Image source={insta} />
                         <Image source={twitter} />
-                    </View>
+                    </View> */}
                 </View>
             </ScrollView>
         </SafeAreaView>

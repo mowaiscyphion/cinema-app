@@ -29,7 +29,7 @@ const Detail = ({ navigation }) => {
                     <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
                         <Back name='left' color={'white'} size={25} onPress={() => navigation.goBack()} />
                         <Text style={{ color: "white", fontSize: 20, fontWeight: 800 }}>Details Movie</Text>
-                        <FontAwesome6 name="bookmark" size={25} color={'white'} />
+                        <FontAwesome6 name="bookmark" size={25} color={'#191e23'} />
                     </View>
                     <View style={{ marginTop: 20 }}>
                         <FlatList data={["", "", ""]} renderItem={({ item }) => <CardTwo item={item} />} horizontal />

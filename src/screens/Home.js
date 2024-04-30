@@ -12,14 +12,22 @@ const dimensions = Dimensions.get('window')
 const Home = ({ navigation }) => {
     const [srch, setSrch] = useState('')
     const [userName, setUserName] = useState('')
+    const [show, setShow] = useState(true)
+    const [list, setList] = useState([])
     const authUser = Auth().currentUser?.uid
     const route = useRoute()
 
 
     const handleScreenChange = (id, arr) => {
+        console.log(id, arr)
         navigation.navigate('Detail', { id: id, arrName: arr })
     }
 
+    const handleFilter = (text) => {
+        const data = Constant.DATA.filter(elem => JSON.stringify(elem).toLowerCase().includes(text.toLowerCase()))
+        setList(data)
+
+    }
 
     const Item = ({ item }) => {
         return (
@@ -47,6 +55,22 @@ const Home = ({ navigation }) => {
         );
     };
 
+    const Item3 = ({ item }) => {
+        return (
+            <TouchableOpacity activeOpacity={0.9} onPress={() => handleScreenChange(item.id, "DATA")}>
+                <View style={[styles.item, { flexDirection: 'row', alignItems: 'center', marginVertical: 10, gap: 5 }]}>
+                    <Image resizeMode='contain' source={item?.img} style={{ width: 80, height: 80 }} />
+                    <View style={{ padding: 5 }}>
+
+                        <Text style={[{ color: '#50a5e1', paddingVertical: 5 }]}>{item?.title}</Text>
+                        <Text style={{ color: 'white', width: dimensions.width * 0.60 }}>{item?.des}</Text>
+                        <Text style={[styles.description, { color: '#6e6e70' }]}>Release : {item?.date}</Text>
+                    </View>
+                </View>
+            </TouchableOpacity>
+        );
+    };
+
     const getUser = async () => {
         const id = route.params?.userId ? route.params?.userId : authUser
         const user = await firestore().collection('Users').doc(id).get();
@@ -69,39 +93,69 @@ const Home = ({ navigation }) => {
                             <Text style={styles.secondary}>Welcome,</Text>
                             <Text style={[styles.test, { fontWeight: '800' }]}>{userName.toUpperCase() || "Back"}</Text>
                         </View>
-                        <Entypo name='user' color={'#6e6e70'} size={25} style={styles.iconProfile} />
+                        <Entypo name='user' color={'#6e6e70'} size={25} style={styles.iconProfile}
+                            onPress={() => navigation.navigate('MyTickets')}
+                        />
                     </View>
                     <View style={styles.srchbar}>
                         <Search name='search1' color={'#6e6e70'} size={25} />
-                        <TextInput style={styles.input} value={srch} onChangeText={text => setSrch(text)} placeholder='Search your favourite movie' placeholderTextColor="#6e6e70" />
-                    </View>
-                    <Text style={styles.test}>
-                        Coming Soon
-                    </Text>
-                    <View>
-
-                        <FlatList
-                            data={Constant.DATA}
-                            renderItem={({ item }) => <Item item={item} />}
-                            keyExtractor={item => item.id}
-                            horizontal={true}
-                            showsHorizontalScrollIndicator={false}
-                            contentContainerStyle={styles.continer}
+                        <TextInput
+                            // onBlur={() => setShow(true)}
+                            onFocus={() => setShow(false)}
+                            style={styles.input}
+                            value={srch}
+                            onChangeText={text => {
+                                setSrch(text)
+                                handleFilter(text)
+                            }}
+                            placeholder='Search your favourite movie'
+                            placeholderTextColor="#6e6e70"
                         />
+                        {!show && <Entypo name='cross' color={'#6e6e70'} size={25} onPress={() => {
+                            setSrch('')
+                            setShow(true)
+                        }} />}
                     </View>
-                    <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginBottom: 15 }}>
+                    {show ? <>
+
                         <Text style={styles.test}>
-                            Cinema Near You
+                            Coming Soon
                         </Text>
-                        <Text style={{ color: '#6e6e70' }}>
-                            See all
-                        </Text>
-                    </View>
-                    <View >
-                        {Constant.DATA2.map((item, index) => (
-                            <Item2 key={index} item={item} />
-                        ))}
-                    </View>
+                        <View>
+
+                            <FlatList
+                                data={Constant.DATA}
+                                renderItem={({ item }) => <Item item={item} />}
+                                keyExtractor={item => item.id}
+                                horizontal={true}
+                                showsHorizontalScrollIndicator={false}
+                                contentContainerStyle={styles.continer}
+                            />
+                        </View>
+                        <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginBottom: 15 }}>
+                            <Text style={styles.test}>
+                                Cinema Near You
+                            </Text>
+                            <Text style={{ color: '#6e6e70' }}>
+                                See all
+                            </Text>
+                        </View>
+                        <View >
+                            {Constant.DATA2.map((item, index) => (
+                                <Item2 key={index} item={item} />
+                            ))}
+                        </View>
+                    </> : <>
+                        <View >
+                            {list?.length > 0 ? list?.map((item, index) => (
+                                <Item3 key={index} item={item} />
+                            )) : (
+                                <>
+                                    <Text style={[styles.secondary, { textAlign: 'center' }]}>No Results Found</Text>
+                                </>
+                            )}
+                        </View>
+                    </>}
                 </View>
             </ScrollView>
         </SafeAreaView>
@@ -138,7 +192,7 @@ const styles = StyleSheet.create({
     },
     input: {
         // backgroundColor: '',
-        width: '90%',
+        width: '85%',
         height: 40,
         color: '#6e6e70'
     },
